@@ -101,6 +101,26 @@
       text-decoration: underline;
       color: black;
     }
+    .success-message {
+      color: #155724;
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .error-message {
+      color: #721c24;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 500;
+    }
   </style>
 
 
@@ -190,11 +210,13 @@
       <label for="password">Password</label>
       <input type="password" id="password" placeholder="Create a password" required />
       <button type="submit" class="auth-btn">Register</button>
+      <div id="message-container"></div>
     </form>
     <div class="auth-links">
       <a class="login-link" href="https://login.swiftroutelanka.xyz">Already have an account? Login</a>
     </div>
   </div>
+  
 
 
 
@@ -218,6 +240,7 @@
   const auth = getAuth(app);
 
   const form = document.querySelector('.auth-form');
+  const messageContainer = document.getElementById("message-container");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -233,11 +256,13 @@
         });
       })
       .then(() => {
-        alert("Registration successful!");
-        window.location.href = "index.html"; // redirect to homepage after registration
+        messageContainer.innerHTML = '<div class="success-message">Registration successful!</div>';
+        setTimeout(() => {
+          window.location.href = "https://www.swiftroutelanka.xyz";
+        }, 2000); // Redirect after 2 seconds
       })
       .catch((error) => {
-        alert("Error: " + error.message);
+        messageContainer.innerHTML = `<div class="error-message">Error: ${error.message}</div>`;
       });
   });
 </script>
